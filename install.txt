@@ -1,0 +1,6 @@
+CUDA
+CUDNN
+
+OPENCV with CUDA
+YOLO // v8
+Pytorch with CUDA

@@ -1,0 +1,37 @@
+Flow:
+
+This time we try another way of setting lane on 64*64 size, to test whether it is the reason that get bad performance with 32*32 size
+
+1. converter.py:
+		save the converted bird view array to "F:\test64\res_bird"
+
+2. sac2bin.py:
+		concat [n,z,bird], here the bird 64 is different from the previous one, because of the lane
+
+3. datautils.py:
+		transfer the npy file into npz file, nothing else to modify, just make sure the path is set correctly
+
+4. renamehelper.py:
+		pull all the npz file out together, and create train、test、dev、check dir manually
+
+5. S2R1000ENZ.py:
+		training: use the train & dev dir to train the model 
+		testing: pick some data for prediction and the corresponding label manually;
+			 these data comes from step2. oganised like [n,z,bird];
+			 in the testing phase, we only need the [n,z], so the code here will extract the first 2048 elements(1024 for n & z seperately) 
+			 the trained model will give the prediction of test data, which will be save to a specific directory;
+			 
+
+6. detectcar.py:
+		the testing in step5 will predict car for each lane(123)
+
+7. analyzeframes.py		
+		would print the actual number of detected car and the predicted number from model
+
+9. compare.py：
+		compare the prediction and truth, to get precision、recall、F1 score
+
+
+preparedata.py: integrate 1234
+training.py: 5. training and testing
+modeltesting: integrate 678
